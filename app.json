@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gcfchen.demostripepayment"
     },
     "android": {
       "adaptiveIcon": {
@@ -34,6 +35,11 @@
           "enableGooglePay": true
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "0663b4e9-9c16-451c-bc99-2e5618b7d53d"
+      }
+    }
   }
 }
