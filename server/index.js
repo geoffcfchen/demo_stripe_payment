@@ -13,7 +13,6 @@ app.listen(port, () => {
 });
 
 app.post("/create-payment-intent", async (req, res) => {
-  console.log("test");
   const stripe = Stripe(SECRET_KEY, { apiVersion: "2022-11-15" });
 
   try {
@@ -22,9 +21,7 @@ app.post("/create-payment-intent", async (req, res) => {
       currency: "usd",
       payment_method_types: ["card"],
     });
-    // console.log("paymentIntent", paymentIntent);
     const clientSecret = paymentIntent.client_secret;
-    // console.log("clientSecret", clientSecret);
     res.json({
       clientSecret: clientSecret,
     });
