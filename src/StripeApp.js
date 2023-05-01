@@ -6,6 +6,10 @@ import {
   useConfirmPayment,
 } from "@stripe/stripe-react-native";
 
+const API_URL =
+  "https://c0b6-2603-8000-a200-c18f-51f-e4f4-6b33-ee22.ngrok-free.app";
+// const API_URL = "http://localhost:3000";
+
 export default function StripeApp() {
   const [email, setEmail] = useState("");
   const [cardDetails, setCardDetails] = useState("");
@@ -18,7 +22,10 @@ export default function StripeApp() {
         "Content-Type": "application/json",
       },
     });
+    // console.log("response", response);
     const { clientSecret, error } = await response.json();
+    console.log("clientSecret", clientSecret);
+    console.log("Error", error);
     return { clientSecret, error };
   }
 
@@ -32,14 +39,14 @@ export default function StripeApp() {
       email: email,
     };
     //2. Fetch the intent client secret from the backend
-
+    // console.log("test");
     try {
       const { clientSecret, error } = await fetchPaymentIntentClientSecret();
       if (error) {
         console.log("Unable to process payment");
       } else {
         const { paymentIntent, error } = await confirmPayment(clientSecret, {
-          type: "Card",
+          paymentMethodType: "Card",
           billingDetails: billingDetails,
         });
         if (error) {
