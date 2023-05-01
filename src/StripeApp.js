@@ -1,6 +1,10 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
-import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
+import {
+  CardField,
+  confirmPayment,
+  useConfirmPayment,
+} from "@stripe/stripe-react-native";
 
 export default function StripeApp() {
   const [email, setEmail] = useState("");
@@ -27,6 +31,27 @@ export default function StripeApp() {
     const billingDetails = {
       email: email,
     };
+    //2. Fetch the intent client secret from the backend
+
+    try {
+      const { clientSecret, error } = await fetchPaymentIntentClientSecret();
+      if (error) {
+        console.log("Unable to process payment");
+      } else {
+        const { paymentIntent, error } = await confirmPayment(clientSecret, {
+          type: "Card",
+          billingDetails: billingDetails,
+        });
+        if (error) {
+          alert(`Payment Confirmation Error ${error.message}`);
+        } else if (paymentIntent) {
+          alert("Payment Successful");
+          console.log("Payment successful", paymentIntent);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <View style={styles.container}>
