@@ -6,9 +6,11 @@ import {
   usePaymentSheet,
 } from "@stripe/stripe-react-native";
 
-const API_URL =
-  "https://c0b6-2603-8000-a200-c18f-51f-e4f4-6b33-ee22.ngrok-free.app";
+// const API_URL =
+//   "https://c0b6-2603-8000-a200-c18f-51f-e4f4-6b33-ee22.ngrok-free.app";
 // const API_URL = "http://localhost:3000";
+const API_URL =
+  "https://us-central1-wp-clone-256aa.cloudfunctions.net/paymentSheet";
 
 export default function StripeApp2() {
   // const { confirmPayment, loading } = useConfirmPayment();
