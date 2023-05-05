@@ -8,11 +8,12 @@ const functions = require("firebase-functions");
 //   response.send("Hello from Firebase!");
 // });
 
-const functions = require("firebase-functions");
 const Stripe = require("stripe");
 
-const PUBLISHABLE_KEY = "your_publishable_key";
-const SECRET_KEY = "your_secret_key";
+const PUBLISHABLE_KEY =
+  "pk_test_51Lhf4GDsOD7fAAq8BAQLfXxnP69pNkOgwcX8CbYx5YEsqzQWHEVFbKoAIjetsXCyQzq46U73S4fEQBOeJLo6inea00vzpGOQet";
+const SECRET_KEY =
+  "sk_test_51Lhf4GDsOD7fAAq83nxSFjarrAwHnVoQFvmgGu3xcTEY4PPFye5gbA5JJWzO63EUqe9hRJo4TrKq0oYk18N0tPSy0040UXN5du";
 
 const stripe = new Stripe(SECRET_KEY, {
   apiVersion: "2022-08-01",
