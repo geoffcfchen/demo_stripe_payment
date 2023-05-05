@@ -18,18 +18,6 @@ export default function StripeApp2() {
   useEffect(() => {
     initialisePaymentSheet();
   }, []);
-
-  // async function fetchPaymentIntentClientSecret() {
-  //   const response = await fetch(`${API_URL}/create-payment-intent`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const { clientSecret, error } = await response.json();
-  //   return { clientSecret, error };
-  // }
-
   const fetchPaymentSheetParams = async () => {
     const response = await fetch(`${API_URL}/payment-sheet`, {
       method: "POST",
@@ -84,54 +72,8 @@ export default function StripeApp2() {
     }
   }
 
-  // async function handlePayPress() {
-  //   // 1. Gather the customer's billing information (e.g., email)
-  //   if (!cardDetails?.complete || !email) {
-  //     Alert.alert("Please ener Complete card details and Email");
-  //     return;
-  //   }
-  //   const billingDetails = {
-  //     email: email,
-  //   };
-  //   //2. Fetch the intent client secret from the backend
-  //   try {
-  //     const { clientSecret, error } = await fetchPaymentIntentClientSecret();
-  //     if (error) {
-  //       console.log("Unable to process payment");
-  //     } else {
-  //       const { paymentIntent, error } = await confirmPayment(clientSecret, {
-  //         paymentMethodType: "Card",
-  //         billingDetails: billingDetails,
-  //       });
-  //       if (error) {
-  //         alert(`Payment Confirmation Error ${error.message}`);
-  //       } else if (paymentIntent) {
-  //         alert("Payment Successful");
-  //         console.log("Payment successful", paymentIntent);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
   return (
     <View style={styles.container}>
-      {/* <TextInput
-        autoCapitalize="none"
-        placeholder="E-mail"
-        keyboardType="email-address"
-        onChange={(value) => setEmail(value.nativeEvent.text)}
-        style={styles.input}
-      ></TextInput>
-      <CardField
-        postalCodeEnabled={true}
-        placeholders={{ number: "4242 4242 4242 4242" }}
-        cardStyle={styles.card}
-        style={styles.cardContainer}
-        onCardChange={(cardDetails) => {
-          setCardDetails(cardDetails);
-        }}
-      ></CardField> */}
       <Button onPress={buy} title="Pay" disabled={loading || !ready}></Button>
     </View>
   );
