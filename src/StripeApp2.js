@@ -21,7 +21,7 @@ export default function StripeApp2() {
     initialisePaymentSheet();
   }, []);
   const fetchPaymentSheetParams = async () => {
-    const response = await fetch(`${API_URL}/payment-sheet`, {
+    const response = await fetch(`${API_URL}/paymentSheet`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +29,7 @@ export default function StripeApp2() {
     });
     // const { clientSecret, error } = await response.json();
     const { paymentIntent, ephemeralKey, customer } = await response.json();
+    console.log("customer", customer);
 
     return {
       paymentIntent,

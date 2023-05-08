@@ -1,4 +1,6 @@
 const functions = require("firebase-functions");
+const { db } = require("./shared/firebase-shared");
+// const { collection, getDocs } = require("firebase/firestore");
 
 // // Create and deploy your first functions
 // // https://firebase.google.com/docs/functions/get-started
@@ -26,9 +28,11 @@ exports.paymentSheet = functions.https.onRequest(async (req, res) => {
     return;
   }
 
-  const customers = await stripe.customers.list();
-  console.log("customers", customers);
-  const customer = customers.data[0];
+  //   const customers = await stripe.customers.list();
+  const customerSnapshot = await db.collection("customers").get();
+  const customers = customerSnapshot.docs.map((doc) => doc.data());
+  //   console.log("customers", customers);
+  const customer = customers[0];
 
   if (!customer) {
     return res.send({
@@ -37,7 +41,7 @@ exports.paymentSheet = functions.https.onRequest(async (req, res) => {
   }
 
   const ephemeralKey = await stripe.ephemeralKeys.create(
-    { customer: customer.id },
+    { customer: customer.stripeId },
     { apiVersion: "2022-08-01" }
   );
 
@@ -50,6 +54,6 @@ exports.paymentSheet = functions.https.onRequest(async (req, res) => {
   return res.json({
     paymentIntent: paymentIntent.client_secret,
     ephemeralKey: ephemeralKey.secret,
-    customer: customer.id,
+    customer: customer.stripeId,
   });
 });
